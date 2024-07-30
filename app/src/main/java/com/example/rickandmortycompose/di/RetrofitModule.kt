@@ -1,9 +1,6 @@
 package com.example.rickandmortycompose.di
 
-import com.example.rickandmortycompose.data.repository.CharacterRepositoryImpl
-import com.example.rickandmortycompose.data.service.CharacterService
 import com.example.rickandmortycompose.data.service.ServiceConstants
-import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -18,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class Module {
+class RetrofitModule {
 
     @Singleton
     @Provides
@@ -36,13 +33,5 @@ class Module {
         Retrofit.Builder().baseUrl(ServiceConstants.BASE_URL).addConverterFactory(
             GsonConverterFactory.create(GsonBuilder().create())
         ).client(okHttpClient).build()
-
-    @Provides
-    fun provideCharacterService(retrofit: Retrofit): CharacterService =
-        retrofit.create(CharacterService::class.java)
-
-    @Provides
-    fun provideCharacterRepository(service: CharacterService): CharacterRepository =
-        CharacterRepositoryImpl(service)
 
 }

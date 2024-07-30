@@ -14,6 +14,11 @@ retrofitVersion = "2.11.0"
 okhttpProfilerVersion = "1.1.0"
 hiltNavigationComposeVersion = "1.2.0"
 kaptVersion = "1.9.0"
+lifecycleRuntimeComposeAndroid = "2.8.4"
+coilVersion = "2.7.0"
+composeNavigation = "2.8.0-beta06"
+serialization = "1.6.3"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +41,11 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
 okhttp-profiler = { group = "io.nerdythings", name = "okhttpprofiler", version.ref = "okhttpProfilerVersion" }
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -43,3 +53,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 #kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

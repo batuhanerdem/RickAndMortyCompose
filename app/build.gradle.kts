@@ -4,6 +4,7 @@ plugins {
 //    alias(libs.plugins.kotlinAndroidKsp)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -64,6 +65,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,6 +80,9 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.profiler)
     implementation(libs.hilt.navigation)
+    implementation(libs.coil)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }
 kapt {
     correctErrorTypes = true

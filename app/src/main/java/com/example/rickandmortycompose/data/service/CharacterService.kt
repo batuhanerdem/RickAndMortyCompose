@@ -1,22 +1,17 @@
 package com.example.rickandmortycompose.data.service
 
 import com.example.rickandmortycompose.domain.model.AllCharactersDTO
-import com.example.rickandmortycompose.domain.model.ApiResponse
-import com.example.rickandmortycompose.domain.model.Result
+import com.example.rickandmortycompose.domain.model.Character
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 interface CharacterService {
-    suspend fun getCharacter(id: String): Response<Result>
+    @GET("${ServiceConstants.CHARACTER_ENDPOINT}/{id}")
+    suspend fun getCharacterById(@Path("id") id: String): Response<Character>
 
     @GET(ServiceConstants.CHARACTER_ENDPOINT)
-    suspend fun getAllCharacters(): Response<ApiResponse<AllCharactersDTO>>
-
-
-    private object ServiceConstants {
-        const val CHARACTER_ENDPOINT = "character"
-    }
-
+    suspend fun getAllCharacters(): Response<AllCharactersDTO>
 
 }
