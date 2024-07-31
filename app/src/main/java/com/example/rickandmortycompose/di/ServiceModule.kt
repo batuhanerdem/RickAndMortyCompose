@@ -16,9 +16,11 @@ class ServiceModule {
     fun provideCharacterService(retrofit: Retrofit): CharacterService =
         retrofit.create(CharacterService::class.java)
 
+    @Provides
     fun provideLocationService(retrofit: Retrofit): LocationService =
         retrofit.create(LocationService::class.java)
 
+    @Provides
     fun provideEpisodeService(retrofit: Retrofit): EpisodeService =
         retrofit.create(EpisodeService::class.java)
 }

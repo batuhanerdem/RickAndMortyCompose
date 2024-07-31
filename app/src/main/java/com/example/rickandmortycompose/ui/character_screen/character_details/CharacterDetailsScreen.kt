@@ -1,8 +1,7 @@
-package com.example.rickandmortycompose.ui.character.character_details
+package com.example.rickandmortycompose.ui.character_screen.character_details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -25,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.rickandmortycompose.domain.model.Character
-import com.example.rickandmortycompose.ui.character.CharactersList
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.SnackBar
 import com.example.rickandmortycompose.utils.AsyncImageWithPreview

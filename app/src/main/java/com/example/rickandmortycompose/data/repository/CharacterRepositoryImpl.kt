@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(private val service: CharacterService) :
     CharacterRepository {
     override fun getAllCharacters(): Flow<Resource<List<Character>>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
             val list = service.getAllCharacters().body()!!.results
             emit(Resource.Success(list))
@@ -25,13 +25,25 @@ class CharacterRepositoryImpl @Inject constructor(private val service: Character
     }
 
     override fun getCharacterById(id: String): Flow<Resource<Character>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
             val character = service.getCharacterById(id).body()!!
             emit(Resource.Success(character))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(TAG, "getAllCharacters: ${e.localizedMessage}")
+            Log.d(TAG, "getCharacterById: ${e.localizedMessage}")
+        }
+    }
+
+    override fun getMultipleCharacters(ids: String): Flow<Resource<List<Character>>> = flow {
+        try {
+            Log.d(TAG, "getMultipleCharacters: ids: $ids")
+            Log.d(TAG, "getMultipleCharacters: body: ${service.getMultipleCharacters(ids)} $")
+            val characterList = service.getMultipleCharacters(ids).body()!!
+            emit(Resource.Success(characterList))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+            Log.d(TAG, "getMultipleCharacters: message: ${e.localizedMessage}")
         }
     }
 

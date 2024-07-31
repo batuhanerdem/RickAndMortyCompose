@@ -14,10 +14,10 @@ import javax.inject.Inject
 class LocationRepositoryImpl @Inject constructor(private val service: LocationService) :
     LocationRepository {
     override fun getAllLocations(): Flow<Resource<List<Location>>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
-            val list = service.getAllLocations().body()!!
-            emit(Resource.Success(list))
+            val dto = service.getAllLocations().body()!!
+            emit(Resource.Success(dto.results))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
             Log.d("tag", "getAllLocations: ${e.localizedMessage}")
@@ -25,7 +25,7 @@ class LocationRepositoryImpl @Inject constructor(private val service: LocationSe
     }
 
     override fun getLocationById(id: String): Flow<Resource<Location>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
             val location = service.getLocationById(id).body()!!
             emit(Resource.Success(location))

@@ -1,7 +1,9 @@
 package com.example.rickandmortycompose.ui
 
+import Screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
@@ -12,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,16 +25,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.black)))
         setContent {
             RickAndMortyComposeTheme {
                 val navHostController = rememberNavController()
                 val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
-//                val currentRoute = navBackStackEntry?.toRoute<Screens>()
+                val currentDest = navBackStackEntry?.destination
                 Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-//                    if (currentRoute !is Screens.CharacterDetails)
-                    BottomNavigationBar(
+                    if (currentDest?.hasRoute(Screens.CharacterDetails::class) == false && !currentDest.hasRoute(Screens.CharactersInLocation::class)
+                    ) BottomNavigationBar(
                         navController = navHostController
                     )
                 }) { innerPadding ->

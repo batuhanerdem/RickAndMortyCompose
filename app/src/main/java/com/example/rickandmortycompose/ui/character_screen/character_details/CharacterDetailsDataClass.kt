@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.character.character_details
+package com.example.rickandmortycompose.ui.character_screen.character_details
 
 import com.example.rickandmortycompose.domain.model.Character
 import kotlinx.coroutines.flow.MutableStateFlow

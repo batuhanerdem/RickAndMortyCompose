@@ -14,4 +14,6 @@ interface CharacterService {
     @GET(ServiceConstants.CHARACTER_ENDPOINT)
     suspend fun getAllCharacters(): Response<AllCharactersDTO>
 
+    @GET("${ServiceConstants.CHARACTER_ENDPOINT}/{ids}")
+    suspend fun getMultipleCharacters(@Path("ids") ids: String): Response<List<Character>>
 }

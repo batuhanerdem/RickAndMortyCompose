@@ -13,7 +13,7 @@ import javax.inject.Inject
 class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeService) :
     EpisodeRepository {
     override fun getAllEpisodes(): Flow<Resource<List<Episode>>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
             val list = service.getAllEpisodes().body()!!.results
             emit(Resource.Success(list))
@@ -25,7 +25,7 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
     }
 
     override fun getEpisodeById(id: String): Flow<Resource<Episode>> = flow {
-        emit(Resource.Loading())
+//        emit(Resource.Loading())
         try {
             val episode = service.getEpisodeById(id).body()!!
             emit(Resource.Success(episode))
