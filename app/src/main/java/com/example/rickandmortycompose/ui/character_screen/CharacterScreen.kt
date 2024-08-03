@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,6 +24,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -55,12 +58,12 @@ fun CharacterScreen(
         viewModel.getAllCharacters()
     }
 
-    Image(
-        painter = painterResource(id = R.drawable.bg_character),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = "rick and morty bg",
-        modifier = Modifier.fillMaxSize()
-    )
+//    Image(
+//        painter = painterResource(id = R.drawable.bg_character),
+//        contentScale = ContentScale.FillBounds,
+//        contentDescription = "rick and morty bg",
+//        modifier = Modifier.fillMaxSize()
+//    )
     Loading(isLoading = loadingState.value)
 
     Column(
@@ -78,35 +81,41 @@ fun CharacterScreen(
 
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun CharacterItemPreview() {
     Column(
         modifier = Modifier
             .padding(15.dp)
-            .fillMaxWidth(0.4f)
-            .fillMaxHeight(0.25f)
+            .fillMaxWidth(0.45f)
+            .fillMaxHeight(0.35f)
             .border(2.dp, Color.Black)
             .background(Color.Blue)
     ) {
-        AsyncImageWithPreview(
-            model = null,
-            contentDescription = "test isim",
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .align(Alignment.CenterHorizontally)
-                .aspectRatio(1f)
-                .background(Color.Red)
-        )
-        Text(
-            text = "test isim",
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(vertical = 35.dp)
-                .background(Color.Gray)
-        )
+        Box(modifier = Modifier) {
+            AsyncImageWithPreview(
+                model = null,
+                contentDescription = "test isim",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .align(Alignment.TopCenter)
+                    .aspectRatio(1f)
+                    .background(Color.Red)
+            )
+            Text(
+                text = "test issadfasdim",
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontSize = TextUnit(19f, TextUnitType.Sp),
+
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(vertical = 15.dp)
+//                    .background(Color.Gray)
+            )
+        }
+
     }
 }
 
