@@ -1,7 +1,7 @@
 package com.example.rickandmortycompose.ui
 
 import Screens
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,9 +36,9 @@ import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 @Composable
 fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavController) {
     BottomAppBar(
-        containerColor = Color.Yellow,
+        containerColor = Color.White,
         contentColor = Color.Black,
-        modifier = modifier.background(Color.Yellow)
+        modifier = modifier.border(0.5.dp, Color.Black)
     ) {
         val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
@@ -53,7 +53,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavControl
                         launchSingleTop = true
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Yellow),
+                colors = NavigationBarItemDefaults.colors(indicatorColor = Color.White),
                 icon = { Icon(item.icon, contentDescription = null, modifier.fillMaxHeight(0.4f)) },
                 label = {
                     Text(
