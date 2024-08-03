@@ -1,7 +1,6 @@
 package com.example.rickandmortycompose.ui.character_screen
 
 import Screens
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,8 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -31,7 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
 import com.example.rickandmortycompose.ui.common.character.CharactersList
@@ -67,7 +63,9 @@ fun CharacterScreen(
     Loading(isLoading = loadingState.value)
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
