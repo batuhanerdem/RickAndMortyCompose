@@ -2,7 +2,6 @@ package com.example.rickandmortycompose.ui.common.character
 
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,7 +55,7 @@ fun CharactersList(
 @Composable
 fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit = {}) {
     Column(modifier = Modifier
-        .padding(vertical = 5.dp, horizontal = 7.5.dp)
+        .padding(vertical = 5.dp, horizontal = 5.dp)
         .fillMaxWidth()
         .clickable { onCharacterClicked(character) }
         .fillMaxHeight(0.4f)) {
@@ -69,8 +68,7 @@ fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit 
                 contentDescription = character.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(20.dp))
-                    .border(1.dp, Color.White, shape = RoundedCornerShape(15.dp))
+                    .clip(RoundedCornerShape(15.dp))
                     .fillMaxHeight()
                     .align(Alignment.CenterStart)
                     .aspectRatio(1f)
@@ -89,7 +87,7 @@ fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit 
                     .padding(vertical = 5.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .background(Color.Black.copy(alpha = 0.08f))
+                    .background(Color.Black.copy(alpha = 0.12f))
 
             )
         }
