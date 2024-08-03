@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,10 +16,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,8 +29,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.rickandmortycompose.domain.model.Character
-import com.example.rickandmortycompose.utils.AsyncImageWithPreview
 
 
 @Composable
@@ -38,12 +41,10 @@ fun CharactersList(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier
-            .fillMaxSize()
+        modifier.fillMaxSize(),
 //            .background(Color.Green)
-            .padding(8.dp),
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(2.dp),
+        verticalArrangement = Arrangement.Top,
     ) {
         items(characters.toList(), key = Character::id) { character ->
             CharacterItem(character, onCharacterClicked)
@@ -55,38 +56,42 @@ fun CharactersList(
 @Composable
 fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit = {}) {
     Column(modifier = Modifier
-        .padding(15.dp)
+        .padding(vertical = 5.dp, horizontal = 7.5.dp)
         .fillMaxWidth()
         .clickable { onCharacterClicked(character) }
-        .fillMaxHeight(0.25f)
-        .border(1.dp, Color.White)
-//            .background(Color.Blue)
-    ) {
-        AsyncImageWithPreview(
-            model = character.image,
-            contentDescription = character.name,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .align(Alignment.CenterHorizontally)
-                .aspectRatio(1f)
-        )
+        .fillMaxHeight(0.4f)) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            AsyncImage(
+//                colorFilter = ColorFilter.tint(Color.Cyan.copy(alpha = 0.5f)),
+                model = character.image,
+                contentDescription = character.name,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(20.dp))
+                    .border(1.dp, Color.White, shape = RoundedCornerShape(15.dp))
+                    .fillMaxHeight()
+                    .align(Alignment.CenterStart)
+                    .aspectRatio(1f)
+            )
+            Text(
+                text = character.name,
+                textAlign = TextAlign.Center,
+                minLines = 1,
+                color = Color.White,
+                maxLines = 2,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = TextUnit(20f, TextUnitType.Sp),
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(vertical = 5.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .background(Color.Black.copy(alpha = 0.08f))
 
-        Text(
-            text = character.name,
-            textAlign = TextAlign.Center,
-            minLines = 2,
-            color = Color.White,
-            maxLines = 2,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = TextUnit(20f, TextUnitType.Sp),
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(vertical = 3.dp)
-                .background(Color.Black.copy(alpha = 0.2f))
-                .fillMaxWidth()
-                .fillMaxHeight()
-        )
+            )
+        }
     }
 }
