@@ -14,7 +14,6 @@ import javax.inject.Inject
 class LocationRepositoryImpl @Inject constructor(private val service: LocationService) :
     LocationRepository {
     override fun getAllLocations(): Flow<Resource<List<Location>>> = flow {
-//        emit(Resource.Loading())
         try {
             val dto = service.getAllLocations().body()!!
             emit(Resource.Success(dto.results))
@@ -25,7 +24,6 @@ class LocationRepositoryImpl @Inject constructor(private val service: LocationSe
     }
 
     override fun getLocationById(id: String): Flow<Resource<Location>> = flow {
-//        emit(Resource.Loading())
         try {
             val location = service.getLocationById(id).body()!!
             emit(Resource.Success(location))

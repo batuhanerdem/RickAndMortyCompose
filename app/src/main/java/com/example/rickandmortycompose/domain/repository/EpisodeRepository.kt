@@ -5,6 +5,7 @@ import com.example.rickandmortycompose.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface EpisodeRepository {
-    fun getAllEpisodes(): Flow<Resource<List<Episode>>>
+    fun getAllEpisodes(page:Int = 1): Flow<Resource<List<Episode>>>
     fun getEpisodeById(id: String): Flow<Resource<Episode>>
+    fun getPageCount(): Flow<Resource<Int>>
 }

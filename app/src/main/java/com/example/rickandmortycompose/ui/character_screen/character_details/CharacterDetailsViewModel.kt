@@ -13,20 +13,18 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(private val characterRepository: CharacterRepository) :
     ViewModel() {
-    val dataClass = CharacterDetailsDataClass()
+    val dataClass = CharacterDetailsScreenDataClass()
 
     fun getCharacter(id: String) {
         characterRepository.getCharacterById(id).onEach { resource ->
+            dataClass.loadingState.value = true
             when (resource) {
                 is Resource.Error -> {
                     dataClass.loadingState.value = false
                     dataClass.errorState.value = resource.message ?: "Unknown Error"
                 }
-
-                is Resource.Loading -> dataClass.loadingState.value = true
                 is Resource.Success -> {
                     resource.data?.let {
-                        Log.d("tag", "viewmodel test $it ")
                         dataClass.loadingState.value = false
                         dataClass.character.value = it
                     }

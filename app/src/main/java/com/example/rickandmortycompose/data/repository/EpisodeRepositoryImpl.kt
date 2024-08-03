@@ -12,10 +12,9 @@ import javax.inject.Inject
 
 class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeService) :
     EpisodeRepository {
-    override fun getAllEpisodes(): Flow<Resource<List<Episode>>> = flow {
-//        emit(Resource.Loading())
+    override fun getAllEpisodes(page: Int): Flow<Resource<List<Episode>>> = flow {
         try {
-            val list = service.getAllEpisodes().body()!!.results
+            val list = service.getAllEpisodes(page).body()!!.results
             emit(Resource.Success(list))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
@@ -24,8 +23,17 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
 
     }
 
+    override fun getPageCount(): Flow<Resource<Int>> = flow {
+        try {
+            val page = service.getAllEpisodes().body()!!.info.pages
+            emit(Resource.Success(page))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+        }
+
+    }
+
     override fun getEpisodeById(id: String): Flow<Resource<Episode>> = flow {
-//        emit(Resource.Loading())
         try {
             val episode = service.getEpisodeById(id).body()!!
             emit(Resource.Success(episode))
@@ -34,5 +42,6 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
             Log.d(TAG, "getAllCharacters: ${e.localizedMessage}")
         }
     }
+
 
 }

@@ -4,18 +4,30 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
+import com.example.rickandmortycompose.domain.use_case.GetSeasonsUseCase
 import com.example.rickandmortycompose.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterScreenViewModel @Inject constructor(private val characterRepository: CharacterRepository) :
-    ViewModel() {
+class CharacterScreenViewModel @Inject constructor(
+    private val characterRepository: CharacterRepository,
+    private val getSeasonsUseCase: GetSeasonsUseCase
+) : ViewModel() {
     val dataClass = CharacterScreenDataClass()
 
+    init {
+        viewModelScope.launch {
+
+            getSeasonsUseCase.execute().collect {}
+        }
+    }
+
     fun getAllCharacters() {
+        dataClass.loadingState.value = true
         characterRepository.getAllCharacters().onEach { resource ->
             when (resource) {
                 is Resource.Error -> {
@@ -23,10 +35,8 @@ class CharacterScreenViewModel @Inject constructor(private val characterReposito
                     dataClass.errorState.value = resource.message ?: "Unknown Error"
                 }
 
-                is Resource.Loading -> dataClass.loadingState.value = true
                 is Resource.Success -> {
                     resource.data?.let {
-                        Log.d("tag", "viewmodel test $it ")
                         dataClass.loadingState.value = false
                         dataClass.characterList.value = it
                     }

@@ -13,7 +13,6 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(private val service: CharacterService) :
     CharacterRepository {
     override fun getAllCharacters(): Flow<Resource<List<Character>>> = flow {
-//        emit(Resource.Loading())
         try {
             val list = service.getAllCharacters().body()!!.results
             emit(Resource.Success(list))
@@ -25,7 +24,6 @@ class CharacterRepositoryImpl @Inject constructor(private val service: Character
     }
 
     override fun getCharacterById(id: String): Flow<Resource<Character>> = flow {
-//        emit(Resource.Loading())
         try {
             val character = service.getCharacterById(id).body()!!
             emit(Resource.Success(character))

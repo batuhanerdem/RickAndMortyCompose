@@ -3,8 +3,8 @@ package com.example.rickandmortycompose.ui.character_screen.character_details
 import com.example.rickandmortycompose.domain.model.Character
 import kotlinx.coroutines.flow.MutableStateFlow
 
-data class CharacterDetailsDataClass(
+data class CharacterDetailsScreenDataClass(
     val loadingState: MutableStateFlow<Boolean> = MutableStateFlow(false),
-    val errorState: MutableStateFlow<String> = MutableStateFlow("testing78"),
+    val errorState: MutableStateFlow<String> = MutableStateFlow(""),
     var character: MutableStateFlow<Character?> = MutableStateFlow(null)
 )

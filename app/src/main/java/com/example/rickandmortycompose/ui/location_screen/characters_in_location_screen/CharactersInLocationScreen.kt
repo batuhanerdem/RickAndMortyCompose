@@ -56,7 +56,6 @@ fun CharactersInLocationScreen(
             navController.navigate(Screens.CharacterDetails(character.id.toString()))
         })
 
-//        SnackBar(modifier = Modifier.fillMaxHeight(1f),text = errorState.value)
     }
 
     ShowSnackBar(snackBarHostState = snackBarHostState, text = errorState.value)

@@ -5,12 +5,13 @@ import com.example.rickandmortycompose.domain.model.Episode
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface EpisodeService {
     @GET("${ServiceConstants.EPISODE_ENDPOINT}/{id}")
     suspend fun getEpisodeById(@Path("id") id: String): Response<Episode>
 
     @GET(ServiceConstants.EPISODE_ENDPOINT)
-    suspend fun getAllEpisodes(): Response<AllEpisodesDTO>
+    suspend fun getAllEpisodes(@Query("page") page: Int = 1): Response<AllEpisodesDTO>
 
 }

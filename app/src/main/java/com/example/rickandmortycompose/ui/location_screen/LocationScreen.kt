@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,6 +38,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.ui.common.Loading
+import com.example.rickandmortycompose.ui.common.TextFields
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
@@ -129,9 +129,9 @@ fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {})
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.fillMaxWidth()
         )
-        LocationTextFields(staticText = "Dimension", dynamicText = location.dimension)
-        LocationTextFields(staticText = "Type", dynamicText = location.type)
-        LocationTextFields(
+        TextFields(staticText = "Dimension", dynamicText = location.dimension)
+        TextFields(staticText = "Type", dynamicText = location.type)
+        TextFields(
             staticText = "Residents Count",
             dynamicText = location.residents.count().toString(),
             modifier = Modifier.padding(bottom = 15.dp)
@@ -140,43 +140,6 @@ fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {})
     }
 }
 
-@Composable
-fun LocationTextFields(modifier: Modifier = Modifier, staticText: String, dynamicText: String) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Text(
-            text = "$staticText:",
-            textAlign = TextAlign.Start,
-            minLines = 1,
-            fontSize = TextUnit(18f, TextUnitType.Sp),
-            color = Color.Yellow,
-            maxLines = 2,
-            fontWeight = FontWeight.SemiBold,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-//                .fillMaxWidth()
-                .padding(start = 10.dp)
-        )
-        Text(
-            text = dynamicText,
-            textAlign = TextAlign.Start,
-            minLines = 1,
-            fontSize = TextUnit(18f, TextUnitType.Sp),
-            color = Color.White,
-            maxLines = 2,
-            fontWeight = FontWeight.Bold,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-//                .fillMaxWidth()
-                .padding(start = 10.dp)
-        )
-    }
-}
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable

@@ -15,13 +15,13 @@ class LocationScreenViewModel @Inject constructor(private val locationRepository
     val dataClass = LocationScreenDataClass()
     fun getAllLocations() {
         locationRepository.getAllLocations().onEach { resource ->
+            dataClass.loadingState.value = true
             when (resource) {//make this generic in base
                 is Resource.Error -> {
                     dataClass.loadingState.value = false
                     dataClass.errorState.value = resource.message ?: "Unknown Error"
                 }
 
-                is Resource.Loading -> dataClass.loadingState.value = true
                 is Resource.Success -> {
                     resource.data?.let {
                         dataClass.loadingState.value = false

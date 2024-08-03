@@ -15,23 +15,25 @@ class CharactersInLocationScreenViewModel @Inject constructor(private val charac
     val dataClass = CharactersInLocationScreenDataClass()
 
     fun getCharacters(idList: List<String>) {
-        characterRepository.getMultipleCharacters(idList.getIdListFromUrlList().toString()).onEach { resource ->
-            when (resource) {//make this generic in base
-                is Resource.Error -> {
-                    dataClass.loadingState.value = false
-                    dataClass.errorState.value = resource.message ?: "Unknown Error"
-                }
+        characterRepository.getMultipleCharacters(idList.getIdListFromUrlList().toString())
+            .onEach { resource ->
+                dataClass.loadingState.value = true
+                when (resource) {//make this generic in base
 
-                is Resource.Loading -> dataClass.loadingState.value = true
-                is Resource.Success -> {
-                    resource.data?.let {
+                    is Resource.Error -> {
                         dataClass.loadingState.value = false
-                        dataClass.characterList.value = it
+                        dataClass.errorState.value = resource.message ?: "Unknown Error"
+                    }
+
+                    is Resource.Success -> {
+                        resource.data?.let {
+                            dataClass.loadingState.value = false
+                            dataClass.characterList.value = it
+                        }
                     }
                 }
-            }
 
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     private fun List<String>.getIdListFromUrlList(): List<String> {
