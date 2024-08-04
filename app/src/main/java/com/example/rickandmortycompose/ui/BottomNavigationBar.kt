@@ -31,14 +31,14 @@ import com.example.rickandmortycompose.ui.character_screen.CharacterScreen
 import com.example.rickandmortycompose.ui.character_screen.character_details.CharacterDetailsScreen
 import com.example.rickandmortycompose.ui.location_screen.LocationScreen
 import com.example.rickandmortycompose.ui.location_screen.characters_in_location_screen.CharactersInLocationScreen
+import com.example.rickandmortycompose.ui.theme.Background
+import com.example.rickandmortycompose.ui.theme.PortalGreen
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
 @Composable
 fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavController) {
     BottomAppBar(
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        modifier = modifier.border(0.5.dp, Color.Black)
+        containerColor = Background, modifier = modifier.border(0.5.dp, Color.Black)
     ) {
         val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
@@ -53,7 +53,13 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavControl
                         launchSingleTop = true
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(indicatorColor = Color.White),
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = Background,
+                    selectedIconColor = Color.Black,
+                    selectedTextColor = Color.Black,
+                    unselectedIconColor = PortalGreen,
+                    unselectedTextColor = PortalGreen
+                ),
                 icon = { Icon(item.icon, contentDescription = null, modifier.fillMaxHeight(0.4f)) },
                 label = {
                     Text(

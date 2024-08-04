@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -18,6 +18,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.R
+import com.example.rickandmortycompose.ui.theme.Background
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
                 val navBackStackEntry by navHostController.currentBackStackEntryAsState()
                 val currentDest = navBackStackEntry?.destination
                 Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-                    if (currentDest?.hasRoute(Screens.CharacterDetails::class) == false && !currentDest.hasRoute(Screens.CharactersInLocation::class)
+                    if (currentDest?.hasRoute(Screens.CharacterDetails::class) == false && !currentDest.hasRoute(
+                            Screens.CharactersInLocation::class
+                        )
                     ) BottomNavigationBar(
                         navController = navHostController
                     )
@@ -42,25 +45,10 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(innerPadding)
                             .fillMaxSize()
+                            .background(Background)
                     )
                 }
             }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-
-    RickAndMortyComposeTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-        ) { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding)) {
-
-            }
-
         }
     }
 }
