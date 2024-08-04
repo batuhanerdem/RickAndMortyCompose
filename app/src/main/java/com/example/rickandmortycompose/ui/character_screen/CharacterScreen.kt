@@ -45,9 +45,8 @@ fun CharacterScreen(
     val characterListState = viewModel.dataClass.characterList.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = errorState.value) {
-        if (errorState.value.isNotEmpty()) {
-            snackBarHostState.showSnackbar(errorState.value)
-        }
+        if (errorState.value.isEmpty()) return@LaunchedEffect
+        snackBarHostState.showSnackbar(errorState.value)
     }
 
     LaunchedEffect(true) {
