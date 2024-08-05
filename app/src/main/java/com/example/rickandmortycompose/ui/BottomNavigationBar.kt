@@ -96,7 +96,7 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
         composable<Screens.Episode> { Text(text = "episode") }
         composable<Screens.CharacterDetails> {
             val args = it.toRoute<Screens.CharacterDetails>()
-            CharacterDetailsScreen(characterId = args.characterId, modifier = defaultModifier)
+            CharacterDetailsScreen(characterId = args.characterId)
         }
         composable<Screens.CharactersInLocation> {
             val args = it.toRoute<Screens.CharactersInLocation>()
