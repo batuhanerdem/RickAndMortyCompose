@@ -52,20 +52,10 @@ fun CharacterScreen(
     LaunchedEffect(true) {
         viewModel.getAllCharacters()
     }
-
-//    Image(
-//        painter = painterResource(id = R.drawable.bg_character),
-//        contentScale = ContentScale.FillBounds,
-//        contentDescription = "rick and morty bg",
-//        modifier = Modifier.fillMaxSize()
-//    )
     Loading(isLoading = loadingState.value)
-
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+            .fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CharactersList(characters = characterListState.value, onCharacterClicked = { character ->
@@ -109,11 +99,9 @@ fun CharacterItemPreview() {
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(vertical = 15.dp)
-//                    .background(Color.Gray)
             )
         }
 
     }
 }
 
-const val TAG = "tag"
