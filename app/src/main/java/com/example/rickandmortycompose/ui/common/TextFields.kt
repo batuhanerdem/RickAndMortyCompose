@@ -31,7 +31,7 @@ fun TextFields(
             minLines = 1,
             fontSize = TextUnit(15f, TextUnitType.Sp),
             color = textColor,
-            maxLines = 2,
+            maxLines = maxLines,
             fontWeight = FontWeight.Normal,
             overflow = TextOverflow.Ellipsis,
         )
