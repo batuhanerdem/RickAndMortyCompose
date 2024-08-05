@@ -7,13 +7,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,8 +38,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.ui.common.Loading
-import com.example.rickandmortycompose.ui.common.TextFields
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
+import com.example.rickandmortycompose.ui.common.TextFields
+import com.example.rickandmortycompose.ui.theme.Background
+import com.example.rickandmortycompose.ui.theme.LightPortalGreen
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
 @Composable
@@ -62,18 +64,10 @@ fun LocationScreen(
     LaunchedEffect(true) {
         viewModel.getAllLocations()
     }
-    Image(
-        painter = painterResource(id = R.drawable.bgr_rainbow),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = "rick and morty bg",
-        modifier = Modifier.fillMaxSize()
-    )
     Loading(isLoading = loadingState.value)
 
     Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LocationList(locations = locationListState.value, onLocationClicked = { location ->
             navController.navigate(Screens.CharactersInLocation(location.residents))
@@ -91,12 +85,10 @@ fun LocationList(
     locations: List<Location>,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(1),
+        columns = GridCells.Fixed(2),
         modifier
             .fillMaxSize()
-//            .background(Color.Green)
-            .padding(8.dp),
-        contentPadding = PaddingValues(12.dp),
+            .padding(15.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         items(locations.toList(), key = Location::id) { location ->
@@ -108,35 +100,44 @@ fun LocationList(
 @Composable
 fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {}) {
     Column(modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth()
+        .fillMaxWidth(0.1f)
         .clickable { onLocationClicked(location) }
-//        .fillMaxHeight(0.25f)
-        .padding(horizontal = 20.dp)
-        .background(Color.Magenta.copy(alpha = 0.45f))
-        .border(1.7.dp, Color.White),
+        .padding(horizontal = 5.dp)
+        .border(1.2.dp, LightPortalGreen, shape = RoundedCornerShape(15.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top) {
 
-        Text(
-            text = location.name,
-            textAlign = TextAlign.Center,
-            minLines = 1,
-            fontSize = TextUnit(24f, TextUnitType.Sp),
-            color = Color.White,
-            maxLines = 2,
-            fontWeight = FontWeight.ExtraBold,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.fillMaxWidth()
-        )
-        TextFields(staticText = "Dimension", dynamicText = location.dimension)
-        TextFields(staticText = "Type", dynamicText = location.type)
-        TextFields(
-            staticText = "Residents Count",
-            dynamicText = location.residents.count().toString(),
-            modifier = Modifier.padding(bottom = 15.dp)
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 15.dp, vertical = 25.dp),
+        ) {
 
+            Image(
+                painter = painterResource(id = R.drawable.ic_planet),
+                contentDescription = "planet",
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(bottom = 10.dp)
+            )
+            Text(
+                text = location.name,
+                textAlign = TextAlign.Start,
+                minLines = 1,
+                fontSize = TextUnit(20f, TextUnitType.Sp),
+                color = Color.Black,
+                maxLines = 2,
+                fontWeight = FontWeight.Medium,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.fillMaxWidth()
+            )
+            TextFields(text = "Dimension: ${location.dimension}")
+            TextFields(text = "Type: ${location.type}")
+            TextFields(
+                text = "Residents Count: ${location.residents.count()}",
+                modifier = Modifier.padding(bottom = 10.dp)
+            )
+        }
     }
 }
 
@@ -144,24 +145,26 @@ fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {})
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun LocationItemPreview() {
+    var id = 0
     val location = Location(
-        "created", "dimension", 5, "name", listOf("1", "2", "3"), "type", "url"
+        "created", "dimension", 0, "name", listOf("1", "2", "3"), "type", "url"
     )
     RickAndMortyComposeTheme {
-        Image(
-            painter = painterResource(id = R.drawable.bgr_rainbow),
-            contentScale = ContentScale.FillBounds,
-            contentDescription = "rick and morty bg",
-            modifier = Modifier.fillMaxSize()
-        )
+        val locationList = mutableListOf(location)
+        repeat(10) {
+            locationList.add(location.copy(id = ++id))
+        }
+
         Column(
-            modifier = Modifier.padding(bottom = 10.dp),
+            modifier = Modifier
+                .padding(bottom = 10.dp)
+                .background(Background),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            for (a in 0..10) {
-                LocationItem(location)
-            }
+            LocationList(locations = locationList.toList())
+
         }
+
     }
 }

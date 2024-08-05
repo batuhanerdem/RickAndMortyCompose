@@ -1,10 +1,8 @@
 package com.example.rickandmortycompose.ui.common
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,51 +13,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
-import androidx.compose.ui.unit.dp
+import com.example.rickandmortycompose.ui.theme.PortalGreen
 
 
 @Composable
 fun TextFields(
-    modifier: Modifier = Modifier,
-    staticText: String,
-    dynamicText: String,
-    staticTextColor: Color = Color.Yellow,
-    dynamicTextColor: Color = Color.White,
-    maxLines: Int = 2
+    modifier: Modifier = Modifier, text: String, textColor: Color = PortalGreen, maxLines: Int = 2
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start
     ) {
-        Log.d("tag", "TextFields:$staticText ")
         Text(
-            text = "$staticText:",
+            text = text,
             textAlign = TextAlign.Start,
             minLines = 1,
-            fontSize = TextUnit(18f, TextUnitType.Sp),
-            color = staticTextColor,
+            fontSize = TextUnit(15f, TextUnitType.Sp),
+            color = textColor,
             maxLines = 2,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = FontWeight.Normal,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-//                .fillMaxWidth()
-                .padding(start = 10.dp)
-        )
-        Text(
-            text = dynamicText,
-            textAlign = TextAlign.Start,
-            minLines = 1,
-            fontSize = TextUnit(18f, TextUnitType.Sp),
-            color = dynamicTextColor,
-            maxLines = maxLines,
-            fontWeight = FontWeight.Bold,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-//                .fillMaxWidth()
-                .padding(start = 10.dp)
         )
     }
 }

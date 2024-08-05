@@ -40,12 +40,6 @@ fun CharactersInLocationScreen(
     LaunchedEffect(true) {
         viewModel.getCharacters(idList)
     }
-    Image(
-        painter = painterResource(id = R.drawable.bg_ima_pickle_rick),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = "rick and morty bg",
-        modifier = Modifier.fillMaxSize()
-    )
     Loading(isLoading = loadingState.value)
     Column(
         modifier = modifier.fillMaxSize(),
