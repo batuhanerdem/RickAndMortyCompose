@@ -12,6 +12,6 @@ enum class BottomNavItem(
 ) {
     Location(Screens.Location, Icons.Default.LocationOn, "Location"),
     Character(Screens.Character, Icons.Default.Person, "Character"),
-    Episode(Screens.Episode, Icons.Default.List, "Episode")
+    Season(Screens.Season, Icons.Default.List, "Season")
 
 }

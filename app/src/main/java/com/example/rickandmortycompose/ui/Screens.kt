@@ -10,11 +10,16 @@ sealed class Screens(val isOnBottomBar: Boolean) { //buraya bak
     data object Character : Screens(true)
 
     @Serializable
-    data object Episode : Screens(true)
+    data object Season : Screens(true)
+
+    @Serializable
+    data object Episode : Screens(false)
 
     @Serializable
     data class CharacterDetails(val characterId: String) : Screens(false)
 
     @Serializable
     data class CharactersInLocation(val characterIdList: List<String>) : Screens(false)
+
+
 }

@@ -31,6 +31,7 @@ import com.example.rickandmortycompose.ui.character_screen.CharacterScreen
 import com.example.rickandmortycompose.ui.character_screen.character_details.CharacterDetailsScreen
 import com.example.rickandmortycompose.ui.location_screen.LocationScreen
 import com.example.rickandmortycompose.ui.location_screen.characters_in_location_screen.CharactersInLocationScreen
+import com.example.rickandmortycompose.ui.season_screen.SeasonScreen
 import com.example.rickandmortycompose.ui.theme.Background
 import com.example.rickandmortycompose.ui.theme.PortalGreen
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
@@ -84,15 +85,14 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
         composable<Screens.Location> {
             LocationScreen(
                 navController = navHostController,
-                modifier = defaultModifier
             )
         }
         composable<Screens.Character> {
             CharacterScreen(
                 navController = navHostController,
-                modifier = defaultModifier
             )
         }
+        composable<Screens.Season> { SeasonScreen() }
         composable<Screens.Episode> { Text(text = "episode") }
         composable<Screens.CharacterDetails> {
             val args = it.toRoute<Screens.CharacterDetails>()
@@ -103,7 +103,6 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
             CharactersInLocationScreen(
                 idList = args.characterIdList,
                 navController = navHostController,
-                modifier = defaultModifier
             )
         }
     }
