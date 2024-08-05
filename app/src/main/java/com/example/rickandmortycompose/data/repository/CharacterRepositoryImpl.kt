@@ -35,8 +35,6 @@ class CharacterRepositoryImpl @Inject constructor(private val service: Character
 
     override fun getMultipleCharacters(ids: String): Flow<Resource<List<Character>>> = flow {
         try {
-            Log.d(TAG, "getMultipleCharacters: ids: $ids")
-            Log.d(TAG, "getMultipleCharacters: body: ${service.getMultipleCharacters(ids)} $")
             val characterList = service.getMultipleCharacters(ids).body()!!
             emit(Resource.Success(characterList))
         } catch (e: Exception) {
