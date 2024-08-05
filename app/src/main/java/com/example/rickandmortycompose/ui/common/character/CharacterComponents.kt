@@ -87,7 +87,7 @@ fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit 
                     .padding(vertical = 5.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .background(Color.Black.copy(alpha = 0.12f))
+                    .background(Color.Black.copy(alpha = 0.05f))
 
             )
         }
