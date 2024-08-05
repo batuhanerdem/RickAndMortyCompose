@@ -19,13 +19,6 @@ class CharacterScreenViewModel @Inject constructor(
 ) : ViewModel() {
     val dataClass = CharacterScreenDataClass()
 
-    init {
-        viewModelScope.launch {
-
-            getSeasonsUseCase.execute().collect {}
-        }
-    }
-
     fun getAllCharacters() {
         dataClass.loadingState.value = true
         characterRepository.getAllCharacters().onEach { resource ->

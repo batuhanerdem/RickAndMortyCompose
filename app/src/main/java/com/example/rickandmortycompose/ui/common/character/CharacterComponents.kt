@@ -41,7 +41,6 @@ fun CharactersList(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier.fillMaxSize(),
-//            .background(Color.Green)
         contentPadding = PaddingValues(2.dp),
         verticalArrangement = Arrangement.Top,
     ) {
@@ -51,7 +50,6 @@ fun CharactersList(
     }
 }
 
-@VisibleForTesting
 @Composable
 fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit = {}) {
     Column(modifier = Modifier
@@ -63,7 +61,6 @@ fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit 
             modifier = Modifier.fillMaxSize()
         ) {
             AsyncImage(
-//                colorFilter = ColorFilter.tint(Color.Cyan.copy(alpha = 0.5f)),
                 model = character.image,
                 contentDescription = character.name,
                 modifier = Modifier
@@ -88,7 +85,6 @@ fun CharacterItem(character: Character, onCharacterClicked: (Character) -> Unit 
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .background(Color.Black.copy(alpha = 0.05f))
-
             )
         }
     }

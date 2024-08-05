@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
+import com.example.rickandmortycompose.ui.season_screen.SeasonScreenViewModel
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
 @Composable
@@ -34,20 +35,12 @@ fun EpisodeScreen(
 
     val loadingState = viewModel.dataClass.loadingState.collectAsStateWithLifecycle()
     val errorState = viewModel.dataClass.errorState.collectAsStateWithLifecycle()
-    val locationListState = viewModel.dataClass.locationList.collectAsStateWithLifecycle()
+    val episodeListState = viewModel.dataClass.episodeList.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = errorState.value) {
         if (errorState.value.isNotEmpty()) {
             snackBarHostState.showSnackbar(errorState.value)
         }
     }
-    repeat(4) { intd -> println(intd) }
-
-    Image(
-        painter = painterResource(id = R.drawable.bgr_rainbow),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = "rick and morty bg",
-        modifier = Modifier.fillMaxSize()
-    )
     Loading(isLoading = loadingState.value)
 
     Column(
@@ -67,12 +60,6 @@ fun EpisodeScreen(
 fun EpisodeItemPreview() {
 
     RickAndMortyComposeTheme {
-        Image(
-            painter = painterResource(id = R.drawable.bgr_rainbow),
-            contentScale = ContentScale.FillBounds,
-            contentDescription = "rick and morty bg",
-            modifier = Modifier.fillMaxSize()
-        )
         Column(
             modifier = Modifier.padding(bottom = 10.dp),
             verticalArrangement = Arrangement.Top,

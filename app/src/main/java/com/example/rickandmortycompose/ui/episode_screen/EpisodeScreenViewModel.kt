@@ -12,5 +12,5 @@ import javax.inject.Inject
 @HiltViewModel
 class EpisodeScreenViewModel @Inject constructor(private val episodeRepository: EpisodeRepository) :
     ViewModel() {
-    val dataClass = LocationScreenDataClass()
+    val dataClass = EpisodeScreenDataClass()
 }

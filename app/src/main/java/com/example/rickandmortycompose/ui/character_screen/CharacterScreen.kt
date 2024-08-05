@@ -55,7 +55,9 @@ fun CharacterScreen(
     Loading(isLoading = loadingState.value)
     Column(
         modifier = modifier
-            .fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween,
+            .fillMaxSize()
+            .padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CharactersList(characters = characterListState.value, onCharacterClicked = { character ->

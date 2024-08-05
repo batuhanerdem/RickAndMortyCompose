@@ -10,5 +10,3 @@ class MainActivityViewModel @Inject constructor(private val characterRepository:
     ViewModel() {
 
 }
-
-const val TAG = "tag"

@@ -67,7 +67,10 @@ fun LocationScreen(
     Loading(isLoading = loadingState.value)
 
     Column(
-        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LocationList(locations = locationListState.value, onLocationClicked = { location ->
             navController.navigate(Screens.CharactersInLocation(location.residents))

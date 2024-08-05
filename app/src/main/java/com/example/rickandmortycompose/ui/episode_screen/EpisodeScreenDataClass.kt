@@ -1,10 +1,10 @@
 package com.example.rickandmortycompose.ui.episode_screen
 
-import com.example.rickandmortycompose.domain.model.Location
+import com.example.rickandmortycompose.domain.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
 
-data class LocationScreenDataClass(
+data class EpisodeScreenDataClass(
     val loadingState: MutableStateFlow<Boolean> = MutableStateFlow(false),
     val errorState: MutableStateFlow<String> = MutableStateFlow(""),
-    var locationList: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())
+    var episodeList: MutableStateFlow<List<Episode>> = MutableStateFlow(emptyList())
 )

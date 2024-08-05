@@ -7,7 +7,6 @@ import com.example.rickandmortycompose.domain.repository.EpisodeRepository
 import com.example.rickandmortycompose.utils.IntUtils
 import com.example.rickandmortycompose.utils.Resource
 import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
@@ -20,7 +19,6 @@ class GetSeasonsUseCase @Inject constructor(private val episodeRepository: Episo
         val flowList = mutableListOf<Flow<Resource<List<Episode>>>>()
 
         episodeRepository.getPageCount().collect {
-            delay(10000) //testing
             it.data?.let {
                 repeat(it) { page ->
                     flowList.add(episodeRepository.getAllEpisodes(page + 1))
@@ -34,25 +32,23 @@ class GetSeasonsUseCase @Inject constructor(private val episodeRepository: Episo
             }
             combinedList
         }.collect { combinedList ->
-            Log.d("tag", "execute: ${combinedList.count()}")
             combinedList.map { generateSeasonList(it) }
             Log.d(" tag", "execute: $seasonList")
+            emit(Resource.Success(seasonList))
         }
     }
 
 
     private fun generateSeasonList(episode: Episode) {
-        Log.d("all", "generateSeasonList: all episodes: ${episode.id}")
-        val episodeRangePair = episode.episode.getSeasonAndEpisode() ?: return
-        val isSeasonAdded = containsSeason(episodeRangePair.first)
-        if (isSeasonAdded) {
-            val season = seasonList.find { it.number == episodeRangePair.first } ?: return
+        val seasonNumber = episode.episode.getSeasonAndEpisodeAsPair()?.first ?: return
+        if (seasonNumber.containsSeason()) { // if the season is defined in seasonList
+            // in case the episodes don't come in an order
+            // check if the episode is the first or the last of the season
+            val season = seasonList.find { it.number == seasonNumber } ?: return
             val lastEpisode = IntUtils.getGreater(season.episodeRange.second, episode.id)
             val firstEpisode = IntUtils.getLower(season.episodeRange.first, episode.id)
-            season.episodeRange = Pair(firstEpisode, lastEpisode)
-        } else {
-            Log.d("episode", "\n\n$episode")
-            val seasonNumber = episode.episode.getSeasonAndEpisode()?.first ?: return
+            season.episodeRange = Pair(firstEpisode, lastEpisode) // set the season episode range
+        } else {    // initialize the season
             val seasonRangePair = Pair(episode.id, episode.id)
             seasonList.add(
                 Season(
@@ -62,14 +58,14 @@ class GetSeasonsUseCase @Inject constructor(private val episodeRepository: Episo
         }
     }
 
-    private fun containsSeason(seasonNumber: Int): Boolean {
+    private fun Int.containsSeason(): Boolean {
         seasonList.map {
-            if (it.number == seasonNumber) return true
+            if (it.number == this) return true
         }
         return false
     }
 
-    private fun String.getSeasonAndEpisode(): Pair<Int, Int>? {
+    private fun String.getSeasonAndEpisodeAsPair(): Pair<Int, Int>? {
         val regex = """S(\d+)E(\d+)""".toRegex()
         val matchResult = regex.find(this)
         return if (matchResult != null) {
