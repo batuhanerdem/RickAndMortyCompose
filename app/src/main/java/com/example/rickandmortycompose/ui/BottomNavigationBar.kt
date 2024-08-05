@@ -79,17 +79,31 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
     NavHost(
         navHostController, startDestination = Screens.Character, modifier = modifier
     ) {
-        composable<Screens.Location> { LocationScreen(navController = navHostController) }
-        composable<Screens.Character> { CharacterScreen(navController = navHostController) }
+        val defaultModifier = Modifier.padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp)
+
+        composable<Screens.Location> {
+            LocationScreen(
+                navController = navHostController,
+                modifier = defaultModifier
+            )
+        }
+        composable<Screens.Character> {
+            CharacterScreen(
+                navController = navHostController,
+                modifier = defaultModifier
+            )
+        }
         composable<Screens.Episode> { Text(text = "episode") }
         composable<Screens.CharacterDetails> {
             val args = it.toRoute<Screens.CharacterDetails>()
-            CharacterDetailsScreen(characterId = args.characterId)
+            CharacterDetailsScreen(characterId = args.characterId, modifier = defaultModifier)
         }
         composable<Screens.CharactersInLocation> {
             val args = it.toRoute<Screens.CharactersInLocation>()
             CharactersInLocationScreen(
-                idList = args.characterIdList, navController = navHostController
+                idList = args.characterIdList,
+                navController = navHostController,
+                modifier = defaultModifier
             )
         }
     }
