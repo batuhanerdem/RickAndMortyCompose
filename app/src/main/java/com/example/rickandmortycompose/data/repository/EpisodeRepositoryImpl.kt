@@ -33,6 +33,16 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
 
     }
 
+    override fun getMultipleEpisodes(episodeListString: String): Flow<Resource<List<Episode>>> =
+        flow {
+            try {
+                val episodeList = service.getMultipleEpisodes(episodeListString).body()!!
+                emit(Resource.Success(episodeList))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+            }
+        }
+
     override fun getEpisodeById(id: String): Flow<Resource<Episode>> = flow {
         try {
             val episode = service.getEpisodeById(id).body()!!

@@ -14,4 +14,6 @@ interface EpisodeService {
     @GET(ServiceConstants.EPISODE_ENDPOINT)
     suspend fun getAllEpisodes(@Query("page") page: Int = 1): Response<AllEpisodesDTO>
 
+    @GET("${ServiceConstants.EPISODE_ENDPOINT}/{episodeListString}")
+    suspend fun getMultipleEpisodes(@Path("episodeListString") episodeListString: String): Response<List<Episode>>
 }
