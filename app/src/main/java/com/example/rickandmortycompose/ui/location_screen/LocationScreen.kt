@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,7 +40,7 @@ import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
 import com.example.rickandmortycompose.ui.common.TextFields
 import com.example.rickandmortycompose.ui.theme.Background
-import com.example.rickandmortycompose.ui.theme.LightPortalGreen
+import com.example.rickandmortycompose.ui.theme.Golden
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
 @Composable
@@ -106,7 +105,7 @@ fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {})
         .fillMaxWidth(0.1f)
         .clickable { onLocationClicked(location) }
         .padding(horizontal = 5.dp)
-        .border(1.2.dp, LightPortalGreen, shape = RoundedCornerShape(15.dp)),
+        .border(1.dp, Golden, shape = RoundedCornerShape(15.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top) {
 

@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,12 +44,8 @@ fun SeasonScreen(
     val seasonListState = viewModel.dataClass.seasonList.collectAsStateWithLifecycle()
     val tabItems = seasonListState.value.map { season ->
         SeasonTabItem("Season ${season.number}", season.episodeCount.toString())
-    }.toMutableList()
+    }
 
-
-//    tabItems.toMutableList().forEach { item ->
-//        repeat(4) { tabItems.add(item) }
-//    }
     val pagerState = rememberPagerState { tabItems.size }
 
     var selectedTabIndex by remember {
@@ -68,9 +63,8 @@ fun SeasonScreen(
     LaunchedEffect(key1 = errorState.value) {
         if (errorState.value.isEmpty()) return@LaunchedEffect
         snackBarHostState.showSnackbar(errorState.value)
-
     }
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         viewModel.getSeasons()
     }
     Loading(isLoading = loadingState.value)
@@ -100,7 +94,6 @@ fun SeasonScreen(
         HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier.fillMaxSize()
-//                    .background(Color.Red.copy(alpha = 0.2f))
             ) {
                 Text(text = seasonListState.value[pagerState.currentPage].number.toString())
                 Text(text = seasonListState.value[pagerState.currentPage].episodeRange.toString())
@@ -118,8 +111,7 @@ fun TabItem(
     tabItem.isSelected = isSelected
     Box(modifier = modifier
         .clickable { onClick() }
-        .padding(horizontal = 8.dp)
-    ) {
+        .padding(horizontal = 8.dp)) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -130,14 +122,15 @@ fun TabItem(
             Text(
                 text = tabItem.title,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(4.dp), // Adjust padding if needed
+                modifier = Modifier.padding(4.dp),
                 color = tabItem.textColor
             )
 //            Text(
 //                text = "${tabItem.episodeCount} test ",
-//                modifier = Modifier.padding(top = 4.dp), // Adjust padding if needed
+//                modifier = Modifier.padding(top = 4.dp),
 //                color = Color.Black
 //            )
         }
     }
 }
+

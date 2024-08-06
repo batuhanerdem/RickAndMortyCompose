@@ -13,12 +13,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
-import com.example.rickandmortycompose.ui.theme.PortalGreen
+import com.example.rickandmortycompose.ui.theme.Golden
 
 
 @Composable
 fun TextFields(
-    modifier: Modifier = Modifier, text: String, textColor: Color = PortalGreen, maxLines: Int = 2
+    modifier: Modifier = Modifier, text: String, textColor: Color = Golden, maxLines: Int = 2
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
