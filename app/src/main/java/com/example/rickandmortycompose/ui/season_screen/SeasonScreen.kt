@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
+import com.example.rickandmortycompose.ui.episode_screen.EpisodeScreen
 import com.example.rickandmortycompose.ui.season_screen.season_tab_item_data_class.SeasonTabItem
 
 @Composable
@@ -95,8 +96,8 @@ fun SeasonScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                Text(text = seasonListState.value[pagerState.currentPage].number.toString())
-                Text(text = seasonListState.value[pagerState.currentPage].episodeRange.toString())
+                val currentSeason = seasonListState.value[pagerState.currentPage]
+                EpisodeScreen(episodeIdPair = currentSeason.episodeRange)
             }
         }
     }
