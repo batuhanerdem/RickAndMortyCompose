@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val Background = Color(0XFFF0FAF2)
 val Golden = Color(0XFFA1824A)
+val EspressoBrown = Color(0XFF1C170D)
