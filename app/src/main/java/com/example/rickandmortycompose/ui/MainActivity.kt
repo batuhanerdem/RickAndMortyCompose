@@ -12,11 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.R
-import com.example.rickandmortycompose.ui.theme.Background
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(innerPadding)
                             .fillMaxSize()
-                            .background(Background)
+                            .background(Color.White)
                     )
                 }
             }

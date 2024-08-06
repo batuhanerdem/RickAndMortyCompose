@@ -39,7 +39,7 @@ import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 @Composable
 fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavController) {
     BottomAppBar(
-        containerColor = Background, modifier = modifier.border(0.8.dp, Golden)
+        containerColor = Color.White, modifier = modifier.border(0.8.dp, Golden)
     ) {
         val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
