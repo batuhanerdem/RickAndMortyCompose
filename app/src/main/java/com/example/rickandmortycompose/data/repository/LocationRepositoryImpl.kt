@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.rickandmortycompose.data.service.LocationService
 import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.domain.repository.LocationRepository
+import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +20,7 @@ class LocationRepositoryImpl @Inject constructor(private val service: LocationSe
             emit(Resource.Success(dto.results))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d("tag", "getAllLocations: ${e.localizedMessage}")
+            Log.d(ERROR, "getAllLocations: ${e.localizedMessage}")
         }
     }
 
@@ -29,7 +30,7 @@ class LocationRepositoryImpl @Inject constructor(private val service: LocationSe
             emit(Resource.Success(location))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d("tag", "getAllLocations: ${e.localizedMessage}")
+            Log.d(ERROR, "getAllLocations: ${e.localizedMessage}")
         }
     }
 

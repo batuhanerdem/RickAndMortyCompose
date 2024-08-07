@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.rickandmortycompose.data.service.EpisodeService
 import com.example.rickandmortycompose.domain.model.Episode
 import com.example.rickandmortycompose.domain.repository.EpisodeRepository
+import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
 import com.example.rickandmortycompose.utils.TAG
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
             emit(Resource.Success(list))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(TAG, "getAllCharacters: ${e.localizedMessage}")
+            Log.d(ERROR, "getAllCharacters: ${e.localizedMessage}")
         }
 
     }
@@ -29,6 +30,7 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
             emit(Resource.Success(page))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+            Log.d(ERROR, "getPageCount: ${e.localizedMessage}")
         }
 
     }
@@ -40,6 +42,7 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
                 emit(Resource.Success(episodeList))
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+                Log.d(ERROR, "getMultipleEpisodes: ${e.localizedMessage}")
             }
         }
 
@@ -49,7 +52,7 @@ class EpisodeRepositoryImpl @Inject constructor(private val service: EpisodeServ
             emit(Resource.Success(episode))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(TAG, "getAllCharacters: ${e.localizedMessage}")
+            Log.d(ERROR, "getAllCharacters: ${e.localizedMessage}")
         }
     }
 

@@ -5,10 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import coil.request.ErrorResult
 import com.example.rickandmortycompose.data.service.CharacterService
 import com.example.rickandmortycompose.domain.model.Character
 import com.example.rickandmortycompose.domain.paging.CharacterPagingDataSource
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
+import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
 import com.example.rickandmortycompose.utils.TAG
 import kotlinx.coroutines.flow.Flow
@@ -57,7 +59,7 @@ class CharacterRepositoryImpl @Inject constructor(private val service: Character
             emit(Resource.Success(character))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(TAG, "getCharacterById: ${e.localizedMessage}")
+            Log.d(ERROR, "getCharacterById: ${e.localizedMessage}")
         }
     }
 
@@ -67,7 +69,7 @@ class CharacterRepositoryImpl @Inject constructor(private val service: Character
             emit(Resource.Success(characterList))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(TAG, "getMultipleCharacters: message: ${e.localizedMessage}")
+            Log.d(ERROR, "getMultipleCharacters: message: ${e.localizedMessage}")
         }
     }
 

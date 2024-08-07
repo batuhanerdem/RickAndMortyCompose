@@ -5,6 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.rickandmortycompose.data.service.CharacterService
 import com.example.rickandmortycompose.domain.model.Character
+import com.example.rickandmortycompose.utils.ERROR
 
 class CharacterPagingDataSource(private val characterService: CharacterService) :
     PagingSource<Int, Character>() {
@@ -27,7 +28,7 @@ class CharacterPagingDataSource(private val characterService: CharacterService) 
                 nextKey = if (response.body()!!.results.isEmpty()) null else page.plus(1)
             )
         } catch (exception: Exception) {
-            Log.d("error", "load: $exception ")
+            Log.d(ERROR, "load: $exception ")
             return LoadResult.Error(exception)
         }
 
