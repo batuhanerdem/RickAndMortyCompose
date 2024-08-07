@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.paging)
 }
 kapt {
     correctErrorTypes = true

@@ -1,14 +1,14 @@
 package com.example.rickandmortycompose.ui.character_screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.map
+import com.example.rickandmortycompose.domain.model.Character
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.example.rickandmortycompose.domain.use_case.GetSeasonsUseCase
-import com.example.rickandmortycompose.utils.Resource
-import com.example.rickandmortycompose.utils.clear
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,22 +20,18 @@ class CharacterScreenViewModel @Inject constructor(
 
     fun getAllCharacters() {
         dataClass.loadingState.value = true
-        characterRepository.getAllCharacters().onEach { resource ->
-            when (resource) {
-                is Resource.Error -> {
-                    dataClass.loadingState.value = false
-                    dataClass.errorState.value = resource.message ?: "Unknown Error"
+        viewModelScope.launch {
+            characterRepository.getAllCharacters().collect { pagingData ->
+                val characterList = mutableListOf<Character>()
+                Log.d("page", "getAllCharacters: $pagingData")
+                pagingData.map { it ->
+                    characterList.add(it)
+                    Log.d("page", "getAllCharacters: $it")
                 }
-
-                is Resource.Success -> {
-                    dataClass.errorState.clear()
-                    resource.data?.let {
-                        dataClass.loadingState.value = false
-                        dataClass.characterList.value = it
-                    }
-                }
+                dataClass.characterList.value = characterList
+                dataClass.loadingState.value = false
             }
-
-        }.launchIn(viewModelScope)
+        }
     }
+
 }
