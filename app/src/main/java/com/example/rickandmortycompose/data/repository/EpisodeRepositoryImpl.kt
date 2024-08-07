@@ -6,7 +6,6 @@ import com.example.rickandmortycompose.domain.model.Episode
 import com.example.rickandmortycompose.domain.repository.EpisodeRepository
 import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
-import com.example.rickandmortycompose.utils.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

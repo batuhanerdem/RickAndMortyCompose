@@ -5,14 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import coil.request.ErrorResult
 import com.example.rickandmortycompose.data.service.CharacterService
 import com.example.rickandmortycompose.domain.model.Character
 import com.example.rickandmortycompose.domain.paging.CharacterPagingDataSource
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
-import com.example.rickandmortycompose.utils.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
