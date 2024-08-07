@@ -80,7 +80,6 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
     NavHost(
         navHostController, startDestination = Screens.Character, modifier = modifier
     ) {
-        val defaultModifier = Modifier.padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp)
 
         composable<Screens.Location> {
             LocationScreen(
