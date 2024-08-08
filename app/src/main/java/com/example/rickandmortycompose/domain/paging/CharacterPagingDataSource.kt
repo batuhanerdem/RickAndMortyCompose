@@ -18,7 +18,8 @@ class CharacterPagingDataSource(private val characterService: CharacterService) 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val page = params.key ?: STARTING_PAGE_INDEX
-        Log.d("valuetest", "load: $params ")
+        Log.d("value", "load: test")
+        Log.d("value", "load: $params ")
         return try {
             val response = characterService.getAllCharacters(page)
             Log.d("source", "load: ${response.body()}")

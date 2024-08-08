@@ -1,6 +1,6 @@
 package com.example.rickandmortycompose.ui.common.character
 
-import androidx.annotation.VisibleForTesting
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,8 +28,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.rickandmortycompose.domain.model.Character
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @Composable
@@ -46,6 +49,29 @@ fun CharactersList(
     ) {
         items(characters.toList(), key = Character::id) { character ->
             CharacterItem(character, onCharacterClicked)
+        }
+    }
+}
+
+@Composable
+fun CharactersList(
+    modifier: Modifier = Modifier,
+    onCharacterClicked: (Character) -> Unit = {},
+    charactersList: MutableStateFlow<PagingData<Character>>,
+) {
+    val characters = charactersList.collectAsLazyPagingItems()
+    Log.d("tag", "CharactersList: count ${characters.itemCount}")
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier.fillMaxSize(),
+        contentPadding = PaddingValues(2.dp),
+        verticalArrangement = Arrangement.Top,
+    ) {
+        items(count = characters.itemCount) { index ->
+            characters[index]?.let {
+                CharacterItem(character = it, onCharacterClicked)
+            }
+
         }
     }
 }

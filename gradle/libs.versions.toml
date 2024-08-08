@@ -18,7 +18,7 @@ lifecycleRuntimeComposeAndroid = "2.8.4"
 coilVersion = "2.7.0"
 composeNavigation = "2.8.0-beta06"
 serialization = "1.6.3"
-paging = "3.3.1"
+pagingComposeAndroid = "3.3.2"
 
 
 [libraries]
@@ -46,12 +46,12 @@ androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", nam
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+androidx-paging-compose-android = { group = "androidx.paging", name = "paging-compose-android", version.ref = "pagingComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-#kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+#kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }# had problem with it
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -6,7 +6,7 @@ import com.example.rickandmortycompose.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
-    suspend fun getAllCharacters(): Flow<PagingData<Character>>
+    fun getAllCharacters(): Flow<PagingData<Character>>
     suspend fun getAllCharacters2()
 
     fun getCharacterById(id: String): Flow<Resource<Character>>

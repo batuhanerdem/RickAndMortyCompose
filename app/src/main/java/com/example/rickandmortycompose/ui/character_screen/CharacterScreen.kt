@@ -42,7 +42,7 @@ fun CharacterScreen(
 
     val loadingState = viewModel.dataClass.loadingState.collectAsStateWithLifecycle()
     val errorState = viewModel.dataClass.errorState.collectAsStateWithLifecycle()
-    val characterListState = viewModel.dataClass.characterList.collectAsStateWithLifecycle()
+    val characterList = viewModel.dataClass.characterList
 
     LaunchedEffect(key1 = errorState.value) {
         if (errorState.value.isEmpty()) return@LaunchedEffect
@@ -53,6 +53,7 @@ fun CharacterScreen(
         viewModel.getAllCharacters()
     }
     Loading(isLoading = loadingState.value)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,7 +61,7 @@ fun CharacterScreen(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CharactersList(characters = characterListState.value, onCharacterClicked = { character ->
+        CharactersList(charactersList = characterList, onCharacterClicked = { character ->
             navController.navigate(Screens.CharacterDetails(character.id.toString()))
         })
 

@@ -12,33 +12,17 @@ import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(private val service: CharacterService) :
     CharacterRepository {
-    override suspend fun getAllCharacters(): Flow<PagingData<Character>> {
+    override fun getAllCharacters(): Flow<PagingData<Character>> {
         val value2 = Pager(config = PagingConfig(
             pageSize = NETWORK_PAGE_SIZE
         ), pagingSourceFactory = { CharacterPagingDataSource(service) }).flow
-        Log.d("value", "getAllCharacters value: ${value2.first()}")
-
-        value2.first().map {
-            Log.d("value", "map: $it ")
-        }
+        Log.d("tag", "getAllCharacters:  calisti")
         return value2
-//        return flow {
-
-//            try {
-//                val value = service.getAllCharacters(2).body()!!.results
-//                Log.d("value", "getAllCharacters: ${value.size}, ${value[0].name}")
-//                emit(PagingData.from(value))
-//            } catch (e: Exception) {
-//                Log.d("error", "getAllCharacters: ${e.localizedMessage}")
-//            }
-
-//    }
     }
 
     override suspend fun getAllCharacters2() {

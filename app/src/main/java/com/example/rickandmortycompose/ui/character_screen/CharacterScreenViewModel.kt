@@ -1,13 +1,12 @@
 package com.example.rickandmortycompose.ui.character_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.map
-import com.example.rickandmortycompose.domain.model.Character
+import androidx.paging.cachedIn
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.example.rickandmortycompose.domain.use_case.GetSeasonsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,20 +17,20 @@ class CharacterScreenViewModel @Inject constructor(
 ) : ViewModel() {
     val dataClass = CharacterScreenDataClass()
 
+//    init {
+//        getAllCharacters()
+//    }
+
     fun getAllCharacters() {
         dataClass.loadingState.value = true
         viewModelScope.launch {
-            characterRepository.getAllCharacters().collect { pagingData ->
-                val characterList = mutableListOf<Character>()
-                Log.d("page", "getAllCharacters: $pagingData")
-                pagingData.map { it ->
-                    characterList.add(it)
-                    Log.d("page", "getAllCharacters: $it")
+            characterRepository.getAllCharacters().distinctUntilChanged().cachedIn(viewModelScope)
+                .collect {
+                    dataClass.loadingState.value = false
+                    dataClass.characterList.value = it
                 }
-                dataClass.characterList.value = characterList
-                dataClass.loadingState.value = false
-            }
         }
+
     }
 
 }
