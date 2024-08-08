@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.season_screen.season_tab_item_data_class
+package com.example.rickandmortycompose.ui.season_screen
 
 import androidx.compose.ui.graphics.Color
 import com.example.rickandmortycompose.ui.theme.Golden

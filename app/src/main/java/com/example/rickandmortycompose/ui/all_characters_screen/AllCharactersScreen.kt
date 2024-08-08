@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.character_screen
+package com.example.rickandmortycompose.ui.all_characters_screen
 
 import Screens
 import androidx.compose.foundation.background
@@ -34,10 +34,10 @@ import com.example.rickandmortycompose.ui.common.character.CharactersList
 import com.example.rickandmortycompose.utils.AsyncImageWithPreview
 
 @Composable
-fun CharacterScreen(
+fun AllCharactersScreen(
     modifier: Modifier = Modifier, navController: NavController = rememberNavController()
 ) {
-    val viewModel: CharacterScreenViewModel = hiltViewModel()
+    val viewModel: AllCharactersScreenViewModel = hiltViewModel()
     val snackBarHostState = remember { SnackbarHostState() }
 
     val loadingState = viewModel.dataClass.loadingState.collectAsStateWithLifecycle()

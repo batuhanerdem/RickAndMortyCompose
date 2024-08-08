@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 data class CharactersInLocationScreenDataClass(
     val loadingState: MutableStateFlow<Boolean> = MutableStateFlow(false),
-    var errorState: MutableStateFlow<String> = MutableStateFlow("testing"),
+    var errorState: MutableStateFlow<String> = MutableStateFlow(""),
     var characterList: MutableStateFlow<List<Character>> = MutableStateFlow(emptyList())
 )

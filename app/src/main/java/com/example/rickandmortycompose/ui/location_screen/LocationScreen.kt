@@ -2,7 +2,6 @@ package com.example.rickandmortycompose.ui.location_screen
 
 import Screens
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -34,14 +32,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
 import com.example.rickandmortycompose.ui.common.TextFields
-import com.example.rickandmortycompose.ui.theme.Background
 import com.example.rickandmortycompose.ui.theme.Golden
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun LocationScreen(
@@ -53,7 +53,9 @@ fun LocationScreen(
 
     val loadingState = viewModel.dataClass.loadingState.collectAsStateWithLifecycle()
     val errorState = viewModel.dataClass.errorState.collectAsStateWithLifecycle()
-    val locationListState = viewModel.dataClass.locationList.collectAsStateWithLifecycle()
+
+    val locationList = viewModel.dataClass.locationList
+
     LaunchedEffect(key1 = errorState.value) {
         if (errorState.value.isNotEmpty()) {
             snackBarHostState.showSnackbar(errorState.value)
@@ -71,7 +73,7 @@ fun LocationScreen(
             .padding(start = 12.5.dp, end = 12.5.dp, top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LocationList(locations = locationListState.value, onLocationClicked = { location ->
+        LocationList(locations = locationList, onLocationClicked = { location ->
             navController.navigate(Screens.CharactersInLocation(location.residents))
         })
 
@@ -84,8 +86,9 @@ fun LocationScreen(
 fun LocationList(
     modifier: Modifier = Modifier,
     onLocationClicked: (Location) -> Unit = {},
-    locations: List<Location>,
+    locations: Flow<PagingData<Location>>,
 ) {
+    val locationList = locations.collectAsLazyPagingItems()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier
@@ -93,8 +96,10 @@ fun LocationList(
             .padding(15.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
-        items(locations.toList(), key = Location::id) { location ->
-            LocationItem(location, onLocationClicked)
+        items(locationList.itemCount) { index ->
+            locationList[index]?.let {
+                LocationItem(it, onLocationClicked)
+            }
         }
     }
 }
@@ -103,7 +108,7 @@ fun LocationList(
 fun LocationItem(location: Location, onLocationClicked: (Location) -> Unit = {}) {
     Column(modifier = Modifier
         .fillMaxWidth(0.1f)
-        .clickable { onLocationClicked(location) }
+        .clickable { if (location.residents.isNotEmpty()) onLocationClicked(location) }
         .padding(horizontal = 5.dp)
         .border(1.dp, Golden, shape = RoundedCornerShape(15.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -158,13 +163,11 @@ fun LocationItemPreview() {
         }
 
         Column(
-            modifier = Modifier
-                .padding(bottom = 10.dp)
-                .background(Background),
+            modifier = Modifier.padding(bottom = 10.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LocationList(locations = locationList.toList())
+//            LocationList(locations = locationList.toList())
 
         }
 

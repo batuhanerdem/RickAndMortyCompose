@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.episode_screen
+package com.example.rickandmortycompose.ui.season_screen.episode_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.SnackbarHostState
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
@@ -33,14 +35,13 @@ import com.example.rickandmortycompose.R
 import com.example.rickandmortycompose.domain.model.Episode
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
-import com.example.rickandmortycompose.ui.theme.Golden
 import com.example.rickandmortycompose.ui.theme.EspressoBrown
+import com.example.rickandmortycompose.ui.theme.Golden
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
 @Composable
 fun EpisodeScreen(
     modifier: Modifier = Modifier,
-    navController: NavController = rememberNavController(),
     episodeIdPair: Pair<Int, Int>
 ) {
 
@@ -90,17 +91,18 @@ fun EpisodeItem(modifier: Modifier = Modifier, episode: Episode, count: Int) {
         Text(
             text = "$count.",
             color = Color.Black,
+            textAlign = TextAlign.End,
             fontSize = TextUnit(16f, TextUnitType.Sp),
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = 10.dp)
+                .width(40.dp)
         )
         Image(
             painter = painterResource(id = R.drawable.rick),
             contentDescription = "rick",
             modifier = Modifier
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 5.dp)
                 .height(70.dp)
                 .aspectRatio(1f)
         )
@@ -115,7 +117,8 @@ fun EpisodeItem(modifier: Modifier = Modifier, episode: Episode, count: Int) {
             text = episode.airDate,
             color = EspressoBrown,
             fontWeight = FontWeight.Normal,
-            fontSize = TextUnit(16f, TextUnitType.Sp)
+            fontSize = TextUnit(16f, TextUnitType.Sp),
+            modifier = Modifier.padding(horizontal = 5.dp)
         )
 
     }
@@ -132,7 +135,7 @@ fun NameAndCount(modifier: Modifier = Modifier, name: String, characterCount: St
             fontSize = TextUnit(16f, TextUnitType.Sp)
         )
         Text(
-            text = "Character count: $characterCount",
+            text = "AllCharacters count: $characterCount",
             color = Golden,
             fontWeight = FontWeight.Normal,
             fontSize = TextUnit(14f, TextUnitType.Sp)
@@ -144,14 +147,17 @@ fun NameAndCount(modifier: Modifier = Modifier, name: String, characterCount: St
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun EpisodeItemPreview() {
+    val sampleEpisode = Episode(
+        airDate = "December 2, 2013",
+        characters = listOf("Rick Sanchez", "Morty Smith"),
+        created = "2017-11-10T12:56:33.798Z",
+        episode = "S01E01",
+        id = 1,
+        name = "Pilot",
+        url = "https://rickandmortyapi.com/api/episode/1"
+    )
 
     RickAndMortyComposeTheme {
-        LazyColumn(
-            modifier = Modifier.padding(bottom = 10.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-        }
+        EpisodeItem(episode = sampleEpisode, count = 10)
     }
 }

@@ -1,6 +1,10 @@
 package com.example.rickandmortycompose.data.repository
 
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.rickandmortycompose.data.paging.LocationPagingDataSource
 import com.example.rickandmortycompose.data.service.LocationService
 import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.domain.repository.LocationRepository
@@ -14,14 +18,10 @@ import javax.inject.Inject
 @ViewModelScoped
 class LocationRepositoryImpl @Inject constructor(private val service: LocationService) :
     LocationRepository {
-    override fun getAllLocations(): Flow<Resource<List<Location>>> = flow {
-        try {
-            val dto = service.getAllLocations().body()!!
-            emit(Resource.Success(dto.results))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
-            Log.d(ERROR, "getAllLocations: ${e.localizedMessage}")
-        }
+    override fun getAllLocations(): Flow<PagingData<Location>> {
+        return Pager(config = PagingConfig(
+            pageSize = NETWORK_PAGE_SIZE
+        ), pagingSourceFactory = { LocationPagingDataSource(service) }).flow
     }
 
     override fun getLocationById(id: String): Flow<Resource<Location>> = flow {
@@ -32,6 +32,10 @@ class LocationRepositoryImpl @Inject constructor(private val service: LocationSe
             emit(Resource.Error(e.localizedMessage ?: "Unknown Error"))
             Log.d(ERROR, "getAllLocations: ${e.localizedMessage}")
         }
+    }
+
+    companion object {
+        const val NETWORK_PAGE_SIZE = 20
     }
 
 }

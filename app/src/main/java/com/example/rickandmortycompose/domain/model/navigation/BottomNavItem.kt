@@ -11,7 +11,7 @@ enum class BottomNavItem(
     val screenType: Screens, val icon: ImageVector, val label: String
 ) {
     Location(Screens.Location, Icons.Default.LocationOn, "Location"),
-    Character(Screens.Character, Icons.Default.Person, "Character"),
+    Character(Screens.AllCharacters, Icons.Default.Person, "AllCharacters"),
     Season(Screens.Season, Icons.Default.List, "Season")
 
 }

@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
+import com.example.rickandmortycompose.data.paging.CharacterPagingDataSource
 import com.example.rickandmortycompose.data.service.CharacterService
 import com.example.rickandmortycompose.domain.model.Character
-import com.example.rickandmortycompose.domain.paging.CharacterPagingDataSource
 import com.example.rickandmortycompose.domain.repository.CharacterRepository
 import com.example.rickandmortycompose.utils.ERROR
 import com.example.rickandmortycompose.utils.Resource
@@ -18,21 +17,9 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(private val service: CharacterService) :
     CharacterRepository {
     override fun getAllCharacters(): Flow<PagingData<Character>> {
-        val value2 = Pager(config = PagingConfig(
-            pageSize = NETWORK_PAGE_SIZE
-        ), pagingSourceFactory = { CharacterPagingDataSource(service) }).flow
-        Log.d("tag", "getAllCharacters:  calisti")
-        return value2
-    }
-
-    override suspend fun getAllCharacters2() {
-
         return Pager(config = PagingConfig(
             pageSize = NETWORK_PAGE_SIZE
-        ), pagingSourceFactory = { CharacterPagingDataSource(service) }).flow.collect { char ->
-            char.map { Log.d("page", "getAllCharacters2: it") }
-
-        }
+        ), pagingSourceFactory = { CharacterPagingDataSource(service) }).flow
     }
 
     override fun getCharacterById(id: String): Flow<Resource<Character>> = flow {

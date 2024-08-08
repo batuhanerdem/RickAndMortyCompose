@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.episode_screen
+package com.example.rickandmortycompose.ui.season_screen.episode_screen
 
 import com.example.rickandmortycompose.domain.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow

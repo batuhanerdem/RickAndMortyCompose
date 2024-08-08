@@ -1,28 +1,25 @@
-package com.example.rickandmortycompose.domain.paging
+package com.example.rickandmortycompose.data.paging
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.rickandmortycompose.data.service.CharacterService
-import com.example.rickandmortycompose.domain.model.Character
+import com.example.rickandmortycompose.data.service.LocationService
+import com.example.rickandmortycompose.domain.model.Location
 import com.example.rickandmortycompose.utils.ERROR
 
-class CharacterPagingDataSource(private val characterService: CharacterService) :
-    PagingSource<Int, Character>() {
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
+class LocationPagingDataSource(private val characterService: LocationService) :
+    PagingSource<Int, Location>() {
+    override fun getRefreshKey(state: PagingState<Int, Location>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Location> {
         val page = params.key ?: STARTING_PAGE_INDEX
-        Log.d("value", "load: test")
-        Log.d("value", "load: $params ")
         return try {
-            val response = characterService.getAllCharacters(page)
-            Log.d("source", "load: ${response.body()}")
+            val response = characterService.getAllLocations(page)
             LoadResult.Page(
                 data = response.body()!!.results,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),

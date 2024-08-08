@@ -7,7 +7,7 @@ sealed class Screens(val isOnBottomBar: Boolean) { //buraya bak
     data object Location : Screens(true)
 
     @Serializable
-    data object Character : Screens(true)
+    data object AllCharacters : Screens(true)
 
     @Serializable
     data object Season : Screens(true)

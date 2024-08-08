@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.character_screen.character_details
+package com.example.rickandmortycompose.ui.all_characters_screen.character_details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

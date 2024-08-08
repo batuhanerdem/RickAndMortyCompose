@@ -1,6 +1,5 @@
-package com.example.rickandmortycompose.ui.character_screen.character_details
+package com.example.rickandmortycompose.ui.all_characters_screen.character_details
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortycompose.domain.repository.CharacterRepository

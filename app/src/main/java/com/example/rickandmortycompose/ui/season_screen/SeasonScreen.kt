@@ -29,8 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmortycompose.ui.common.Loading
 import com.example.rickandmortycompose.ui.common.ShowSnackBar
-import com.example.rickandmortycompose.ui.episode_screen.EpisodeScreen
-import com.example.rickandmortycompose.ui.season_screen.season_tab_item_data_class.SeasonTabItem
+import com.example.rickandmortycompose.ui.season_screen.episode_screen.EpisodeScreen
 
 @Composable
 fun SeasonScreen(

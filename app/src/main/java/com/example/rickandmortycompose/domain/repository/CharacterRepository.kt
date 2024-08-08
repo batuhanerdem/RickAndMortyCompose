@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
     fun getAllCharacters(): Flow<PagingData<Character>>
-    suspend fun getAllCharacters2()
-
     fun getCharacterById(id: String): Flow<Resource<Character>>
     fun getMultipleCharacters(ids: String): Flow<Resource<List<Character>>>
 }

@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.character_screen
+package com.example.rickandmortycompose.ui.all_characters_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterScreenViewModel @Inject constructor(
+class AllCharactersScreenViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
     private val getSeasonsUseCase: GetSeasonsUseCase
 ) : ViewModel() {
-    val dataClass = CharacterScreenDataClass()
+    val dataClass = AllCharactersScreenDataClass()
 
 //    init {
 //        getAllCharacters()

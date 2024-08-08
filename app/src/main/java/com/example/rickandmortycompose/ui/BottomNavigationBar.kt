@@ -27,12 +27,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.rickandmortycompose.domain.model.navigation.BottomNavItem
-import com.example.rickandmortycompose.ui.character_screen.CharacterScreen
-import com.example.rickandmortycompose.ui.character_screen.character_details.CharacterDetailsScreen
+import com.example.rickandmortycompose.ui.all_characters_screen.AllCharactersScreen
+import com.example.rickandmortycompose.ui.all_characters_screen.character_details.CharacterDetailsScreen
 import com.example.rickandmortycompose.ui.location_screen.LocationScreen
 import com.example.rickandmortycompose.ui.location_screen.characters_in_location_screen.CharactersInLocationScreen
 import com.example.rickandmortycompose.ui.season_screen.SeasonScreen
-import com.example.rickandmortycompose.ui.theme.Background
 import com.example.rickandmortycompose.ui.theme.Golden
 import com.example.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
 
@@ -55,7 +54,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavControl
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Background,
+                    indicatorColor = Color.White,
                     selectedIconColor = Color.Black,
                     selectedTextColor = Color.Black,
                     unselectedIconColor = Golden,
@@ -78,7 +77,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavControl
 @Composable
 fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
     NavHost(
-        navHostController, startDestination = Screens.Character, modifier = modifier
+        navHostController, startDestination = Screens.AllCharacters, modifier = modifier
     ) {
 
         composable<Screens.Location> {
@@ -86,8 +85,8 @@ fun NavigationHost(navHostController: NavHostController, modifier: Modifier) {
                 navController = navHostController,
             )
         }
-        composable<Screens.Character> {
-            CharacterScreen(
+        composable<Screens.AllCharacters> {
+            AllCharactersScreen(
                 navController = navHostController,
             )
         }
