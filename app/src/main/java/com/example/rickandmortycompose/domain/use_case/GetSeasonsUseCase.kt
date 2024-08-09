@@ -1,6 +1,5 @@
 package com.example.rickandmortycompose.domain.use_case
 
-import android.util.Log
 import com.example.rickandmortycompose.domain.model.Episode
 import com.example.rickandmortycompose.domain.model.Season
 import com.example.rickandmortycompose.domain.repository.EpisodeRepository
@@ -33,7 +32,6 @@ class GetSeasonsUseCase @Inject constructor(private val episodeRepository: Episo
             combinedList
         }.collect { combinedList ->
             combinedList.map { generateSeasonList(it) }
-            Log.d(" tag", "execute: $seasonList")
             emit(Resource.Success(seasonList))
         }
     }

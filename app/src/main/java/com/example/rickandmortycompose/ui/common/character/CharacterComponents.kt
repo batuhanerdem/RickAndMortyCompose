@@ -1,6 +1,5 @@
 package com.example.rickandmortycompose.ui.common.character
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +59,6 @@ fun CharactersList(
     charactersList: MutableStateFlow<PagingData<Character>>,
 ) {
     val characters = charactersList.collectAsLazyPagingItems()
-    Log.d("tag", "CharactersList: count ${characters.itemCount}")
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier.fillMaxSize(),

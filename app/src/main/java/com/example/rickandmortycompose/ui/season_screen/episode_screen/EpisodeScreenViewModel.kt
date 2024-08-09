@@ -1,6 +1,5 @@
 package com.example.rickandmortycompose.ui.season_screen.episode_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortycompose.domain.use_case.GetMultipleEpisodesUseCase
@@ -26,7 +25,6 @@ class EpisodeScreenViewModel @Inject constructor(private val getMultipleEpisodes
             resource.data?.let {
                 dataClass.errorState.clear()
                 dataClass.episodeList.value = it
-                Log.d("episodes", "getEpisodes: ${it.count()}\n\n$it ")
             }
 
         }.launchIn(viewModelScope)
